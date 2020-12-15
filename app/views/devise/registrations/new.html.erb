@@ -28,6 +28,16 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
+  <%= f.fields_for :address, resource.build_address do |addresses_form| %>
+    <li>
+      <%= addresses_form.label :kind %>
+      <%= addresses_form.text_field :kind %>
+
+      <%= addresses_form.label :street %>
+      <%= addresses_form.text_field :street %>
+
+    </li>
+  <% end %>
 </div>
   <div class="actions">
     <%= f.submit "Sign up", class: "btn btn-lg btn-primary" %>
