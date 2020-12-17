@@ -6,13 +6,26 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one :address, inverse_of: :user
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
+  has_many :orders, dependent: :destroy
 
-def admin?
-     has_role?(:admin)
-end
+  def admin?
+      has_role?(:admin)
+  end
 
-def client?
-      has_role?(:client)
-end
+  def client?
+        has_role?(:client)
+  end
 
+  def latest_order
+      orders.where(status:0).first || new_order
+    end
+
+  private
+    def new_order
+      orders.create(status:0)
+    end
+
+    def add_order
+     self.orders.create!(total_price: 0, total_quantity: 0)
+   end
 end

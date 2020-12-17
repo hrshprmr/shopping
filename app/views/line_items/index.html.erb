@@ -1,29 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Line Items</h1>
-
-<table  class = "table">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @line_items.each do |line_item| %>
-      <tr>
-      <td><%= line_item.product_id %></td>
-        <td><%= line_item.quantity %></td>
-        <td><%= line_item.price %></td>
-        <td><%= link_to 'Show', [line_item.product,line_item], class: "btn  btn-success" %></td>
-
-        <td><%= link_to 'Destroy', [line_item.product,line_item],class: "btn  btn-warning", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<% if @order.line_items.size>0 %>
+  <% @order.line_items.each do |line_item| %>
+    <p><b>Title: </b><%= line_item.product.name %></p>
+    <p><b>Price: </b><%= line_item.product.price %></p>
+  <% end %><br><br>
+<% end %>

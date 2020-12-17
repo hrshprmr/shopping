@@ -232,7 +232,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.2)
-  puma (~> 4.1)
+  puma
   rails (~> 6.0.3, >= 6.0.3.4)
   rolify
   sass-rails (>= 6)

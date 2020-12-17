@@ -5,15 +5,22 @@
     <thead>
       <tr>
         <th class="col-md-2">Name</th>
-    	<th class="col-md-2">Price</th>
-    	<th class="col-md-4">Options</th>
+      <th class="col-md-2">Price</th>
+      <th class="col-md-2">Image</th>
+      <th class="col-md-4">Options</th>
+      <th class="col-md-4">Action</th>
       </tr>
     </thead>
     <tbody>
       <% @products.each do |product| %>
         <tr>
       	  <td class="col-md-2"><%= product.name %></td>
-      	  <td class="col-md-2">$<%= product.price %></td>
+          <td class="col-md-2">$<%= product.price %></td>
+          <td class="col-md-2" <% product.images.each do |image| %></td>
+          <%= image_tag image ,size: "50x50" ,:class => 'class="card-img-top"'%>
+
+          <% end %>
+
           <td class="col-md-4">
           <% if has_role?(:admin)%>
             <%= link_to 'Show', product_path(product), class: "btn btn-info" %>
@@ -22,6 +29,13 @@
          <% else %>
          <%= link_to 'Show', product_path(product), class: "btn btn-info" %>
          <% end %>
+            </td>
+            <td>
+              <%= form_for(:line_item, url: order_line_items_path(current_user.latest_order), local: true ) do |form| %>
+                <%= form.hidden_field :product_id, value: product.id %>
+                <%= form.number_field :quantity, value: 1, min: 1, class: "form-control" %>
+                <span><%= form.submit 'Add to cart' ,class: "btn  btn-warning"%></span>
+              <% end %>
             </td>
     	</tr>
       <% end %>
