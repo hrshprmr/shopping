@@ -1,6 +1,47 @@
-<% if @order.line_items.size>0 %>
-  <% @order.line_items.each do |line_item| %>
-    <p><b>Title: </b><%= line_item.product.name %></p>
-    <p><b>Price: </b><%= line_item.product.price %></p>
-  <% end %><br><br>
-<% end %>
+<div class="container">
+  <h1>All  Products</h1>
+  <div class="row">
+  <div class="col-md-12">
+      <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% if current_user.latest_order.line_items.size>0 %>
+          <% current_user.latest_order.line_items.each do |line_item| %>
+          <tr>
+
+            <td>Name: </b><%= line_item.product.name %></td>
+            <td>Price: </b><%= line_item.price %></td>
+
+            <td>
+              <%= form_for([line_item.order, line_item]) do |f| %>
+
+                <%= f.hidden_field :product_id, value: line_item.product.id %>
+
+                <%= f.number_field :quantity, value: line_item.quantity.to_i, min: 1, 
+
+                class: 'form-control',placeholder: 'edit quantity'%><br>
+                <%= f.submit "Update Quantity", class: 'btn btn-primary mt-2' %>
+              
+                <%= link_to 'Destroy', [line_item.order,line_item], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+              <% end %>
+                
+                
+            </td>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <% if current_user.latest_order.line_items.present? %>
+    <%= link_to 'Proceed to Buy', order_path(current_user.latest_order), :class => 'btn btn-success mb-2' %>
+  <% end %>
+</div>

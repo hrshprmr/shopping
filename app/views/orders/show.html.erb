@@ -1,0 +1,19 @@
+<body style="background-color: #d9d9d9;">
+<div class="container">
+  <div class="row">
+  <h3 >Select a delivery address</h3>
+     
+        <ul class="list-group list-group-flush">          
+          <h4 class="list-group-item"><b><%= current_user.username %></b></h4>
+          <li class="list-group-item"><%= current_user.address.address_1 %></li>
+          <li class="list-group-item"><%= current_user.address.address_2 %></li>
+          <li class="list-group-item"><%= current_user.address.city %></li>
+          <li class="list-group-item"><%= current_user.address.state %></li>
+          <li class="list-group-item"><%= current_user.address.country %></li>
+        </ul>
+        <%= link_to 'Deliver to this address', payment_option_path, :class => 'btn btn-lg  btn-warning'%>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
